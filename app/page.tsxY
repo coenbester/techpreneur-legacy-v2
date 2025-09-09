@@ -1,0 +1,60 @@
+"use client"
+
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { User, GraduationCap } from 'lucide-react'
+
+export default function VirtualTutor() {
+  const [userRole, setUserRole] = useState<"lecturer" | "student">("student")
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-6">
+          <div className="flex justify-between items-center mb-4">
+            <div></div>
+            <h1 className="text-4xl font-bold text-gray-800">🎓 Virtual Tutor</h1>
+            <div className="flex items-center gap-2">
+              <Button
+                variant={userRole === "student" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setUserRole("student")}
+                className="flex items-center gap-2"
+              >
+                <User className="h-4 w-4" />
+                Student
+              </Button>
+              <Button
+                variant={userRole === "lecturer" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setUserRole("lecturer")}
+                className="flex items-center gap-2"
+              >
+                <GraduationCap className="h-4 w-4" />
+                Lecturer
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <Card className="text-center p-8">
+          <CardContent>
+            <h2 className="text-2xl font-bold mb-4">
+              {userRole === "lecturer" ? "👨‍🏫 Lecturer Dashboard" : "👨‍🎓 Student Portal"}
+            </h2>
+            <p className="text-gray-600 mb-6">
+              {userRole === "lecturer" 
+                ? "Upload and manage lecture materials for your students"
+                : "Select lectures and start learning with AI assistance"
+              }
+            </p>
+            <Button onClick={() => setUserRole(userRole === "lecturer" ? "student" : "lecturer")}>
+              Switch to {userRole === "lecturer" ? "Student" : "Lecturer"} Mode
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  )
+}
